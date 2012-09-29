@@ -1,0 +1,49 @@
+# --------------
+# User Instructions
+#
+# Write a function, longest_subpalindrome_slice(text) that takes 
+# a string as input and returns the i and j indices that 
+# correspond to the beginning and end indices of the longest 
+# palindrome in the string. 
+#
+# Grading Notes:
+# 
+# You will only be marked correct if your function runs 
+# efficiently enough. We will be measuring efficency by counting
+# the number of times you access each string. That count must be
+# below a certain threshold to be marked correct.
+#
+# Please do not use regular expressions to solve this quiz!
+
+def longest_subpalindrome_slice(text):
+    "Return (i, j) such that text[i:j] is the longest palindrome in text."
+    text_len = len(text)
+    j1, j2 = 0, 0
+    sps = []
+    for i in range(text_len-1):
+        if text[i] == text[i+1]:
+            j1, j2 = i, i + 1
+        elif i<text_len-3 and text[i]==text[i+2]:
+            j1, j2 = i, i+2
+        while (text[j1] == text[j2] and j1 > 0 and j2 < (text_len-1)):
+            j1, j2 = j1 - 1, j2 + 1
+            while text[j1] == ' ' and j1 > 0: j1 -= 1
+            while text[j2] == ' ' and j2 > 0: j2 += 1
+        sps.add((j1, j2+1))
+    return sps
+    
+def test():
+    L = longest_subpalindrome_slice
+    assert L('racecar') == (0, 7)
+    assert L('Racecar') == (0, 7)
+    assert L('RacecarX') == (0, 7)
+    assert L('Race carr') == (7, 9)
+    assert L('') == (0, 0)
+    assert L('something rac e car going') == (8,21)
+    assert L('xxxxx') == (0, 5)
+    assert L('Mad am I ma dam.') == (0, 15)
+    return 'tests pass'
+
+print longest_subpalindrome_slice('Racecar')
+p = 'Racecar'
+print p[0:6]
