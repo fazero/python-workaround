@@ -6,4 +6,3 @@ def function(n):
 def newton(func, x0, epsilon=0.05):
     return
 
-print 'dfas;f'
